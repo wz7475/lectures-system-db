@@ -47,7 +47,7 @@ BEGIN
     UPDATE users SET password = v_password WHERE id = p_id;
 END;
 
-CREATE OR REPLACE PROCEDURE change_offer(p_offer_id NUMBER, p_buyer_id NUMBER) AS
+CREATE OR REPLACE PROCEDURE accept_offer(p_offer_id NUMBER, p_buyer_id NUMBER) AS
 BEGIN
     -- @TODO: Change lectures between users
     -- @TODO: Delete offer
