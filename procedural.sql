@@ -3,15 +3,17 @@
 -- ================ ================ ================ ================
 CREATE OR REPLACE TRIGGER tg_lectures_history
     AFTER INSERT OR DELETE
-    ON lectures
+    ON lectures_users
     FOR EACH ROW
 BEGIN
     IF INSERTING THEN
-        INSERT INTO lectures_history VALUES (); -- @TODO: Fill values
+        INSERT INTO lectures_history
+        VALUES (lectures_history_id_sequence.nextval, :new.lecture_id, :new.users_id, SYSDATE, 'SIGN_UP');
     END IF;
-
+--
     IF DELETING THEN
-        INSERT INTO lectures_history VALUES (); -- @TODO: Fill values
+        INSERT INTO lectures_history
+        VALUES (lectures_history_id_sequence.nextval, :old.lecture_id, :old.users_id, SYSDATE, 'OPT_OUT');
     END IF;
 END;
 
@@ -21,13 +23,16 @@ CREATE OR REPLACE TRIGGER tg_offers_history
     FOR EACH ROW
 BEGIN
     IF INSERTING THEN
-        INSERT INTO offers_history VALUES (); -- @TODO: Fill values
+        INSERT INTO offers_history
+        VALUES (offers_history_id_sequence.nextval, :new.offered_lecture_id, :new.returned_lecture_id, :new.seller_id,
+                NULL, SYSDATE, 'CREATE');
     END IF;
 
     IF DELETING THEN
-        -- @TODO: Fill condition
-        IF NOT EXISTS(SELECT 1 FROM offers_history oh WHERE oh.id = :old.id AND oh.type == '?') THEN
-            INSERT INTO offers_history VALUES (); -- @TODO: Fill values
+        IF NOT EXISTS(SELECT 1 FROM offers_history oh WHERE oh.id = :old.id AND oh.operation_type = 'EXCHANGE') THEN
+            INSERT INTO offers_history
+            VALUES (offers_history_id_sequence.nextval, :old.offered_lecture_id, :old.returned_lecture_id,
+                    :old.seller_id, NULL, SYSDATE, 'DELETE');
         END IF;
     END IF;
 END;
@@ -60,8 +65,23 @@ BEGIN
 END;
 
 CREATE OR REPLACE FUNCTION find_best_offer(p_buyer_id NUMBER) RETURN NUMBER AS
-    v_offer NUMBER;
+    v_offer NUMBER := -1;
 BEGIN
-    -- @TODO: Use cursor to find offer (oldest one)
+    FOR r_user_offer IN (SELECT * FROM offers WHERE seller_id = p_buyer_id)
+        LOOP
+            FOR r_offer IN (SELECT *
+                            FROM offers
+                            WHERE seller_id != p_buyer_id
+                              AND offered_lecture_id = r_user_offer.returned_lecture_id
+                              AND returned_lecture_id = r_user_offer.offered_lecture_id)
+                LOOP
+                    IF (v_offer = -1) THEN
+                        v_offer := r_offer.id;
+                    ELSIF (r_offer.id < v_offer) THEN
+                        v_offer := r_offer.id;
+                    END IF;
+                END LOOP;
+        END LOOP;
+
     RETURN v_offer;
 END;
