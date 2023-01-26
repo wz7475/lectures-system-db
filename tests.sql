@@ -63,3 +63,11 @@ commit;
 select * from LECTURES_HISTORY where TYPE = 'OPT_OUT';
 
 -- offer history
+INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1, 1);
+commit;
+select * from OFFERS_HISTORY where OPERATION_TYPE = 'CREATE';
+
+delete from OFFERS where RETURNED_LECTURE_ID = 2  and OFFERED_LECTURE_ID = 1 AND SELLER_ID = 1;
+commit;
+select * from OFFERS_HISTORY where OPERATION_TYPE = 'DELETE';
+
