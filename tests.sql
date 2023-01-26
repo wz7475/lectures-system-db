@@ -52,3 +52,14 @@ SELECT * FROM OFFERS WHERE OFFERED_LECTURE_ID = 2 AND RETURNED_LECTURE_ID = 1;
 SELECT * FROM LECTURES_USERS WHERE USERS_ID = 2;
 
 
+-- triggers
+-- lecture history
+INSERT INTO LECTURES_USERS VALUES(1, 2);
+commit;
+select * from LECTURES_HISTORY where TYPE like 'SIGN_UP';
+
+delete from LECTURES_USERS where USERS_ID = 1 and LECTURE_ID = 2;
+commit;
+select * from LECTURES_HISTORY where TYPE = 'OPT_OUT';
+
+-- offer history

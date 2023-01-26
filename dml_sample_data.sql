@@ -23,3 +23,5 @@ INSERT INTO OFFERS VALUES(1, 2, 1, 2);
 -- Create a new opinion on German posted by user
 
 INSERT INTO OPINIONS VALUES(1, 'I did not like it, I should have signed up for English instead.', TO_TIMESTAMP('2022-01-20 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), 2, 2);
+
+commit;
