@@ -21,3 +21,26 @@ SELECT LECTURES.NAME, OPINIONS.CONTENT, OPINIONS.CREATED_AT
 FROM LECTURES
 JOIN OPINIONS ON LECTURES.ID = OPINIONS.LECTURE_ID
 
+
+
+-- grouping
+
+-- number of lectures  per day of week
+SELECT DAY_OF_WEEK, COUNT(*) FROM LECTURES GROUP BY DAY_OF_WEEK;
+
+-- number of lectures each user is assigned to
+SELECT USERS_ID, COUNT(*) FROM LECTURES_USERS GROUP BY USERS_ID;
+
+SELECT LECTURE_ID, AVG(length(CONTENT)) FROM OPINIONS GROUP BY LECTURE_ID;
+-- get average length of opinion for each lecture
+
+SELECT LECTURE_ID, COUNT(*) FROM OPINIONS GROUP BY LECTURE_ID;
+-- get number of opinions for each lecture
+
+SELECT LECTURE_ID, COUNT(*) FROM OPINIONS GROUP BY LECTURE_ID HAVING COUNT(*) > 1;
+-- get number of opinions for each lecture with more than 1 opinion
+
+SELECT DAY_OF_WEEK, SUM(DURATION) FROM LECTURES GROUP BY DAY_OF_WEEK;
+-- get total duration of lectures per day of week
+
+
