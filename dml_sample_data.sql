@@ -2,6 +2,8 @@
 
 INSERT INTO USERS VALUES (1, 'admin', '12345', 1);
 INSERT INTO USERS VALUES (2, 'user', '12345', 0);
+-- 12345 are sample values, database  reveived and returns a hash of the password
+-- hashes are handled by java application not by database
 
 -- Create 2 sample lectures
 

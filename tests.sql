@@ -67,7 +67,30 @@ INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1, 1);
 commit;
 select * from OFFERS_HISTORY where OPERATION_TYPE = 'CREATE';
 
-delete from OFFERS where RETURNED_LECTURE_ID = 2  and OFFERED_LECTURE_ID = 1 AND SELLER_ID = 1;
+delete from OFFERS where RETURNED_LECTURE_ID = 1  and OFFERED_LECTURE_ID = 2 AND SELLER_ID = 1;
 commit;
 select * from OFFERS_HISTORY where OPERATION_TYPE = 'DELETE';
 
+
+
+-- procedures
+-- change password
+select * from USERS where ID = 1;
+begin
+    CHANGE_PASSWORD(1 , 'new_password');
+end;
+/
+select * from USERS where ID = 1;
+
+-- accept offer
+select * from OFFERS;
+INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1, 1);
+commit;
+declare
+        offer_id number;
+begin
+    select ID into offer_id from OFFERS where RETURNED_LECTURE_ID = 1  and OFFERED_LECTURE_ID = 2 AND SELLER_ID = 1;
+    ACCEPT_OFFER(offer_id, 1);
+end;
+/
+select * from OFFERS;
