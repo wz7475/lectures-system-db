@@ -2,6 +2,7 @@
 
 INSERT INTO USERS VALUES (1, 'admin', '12345', 1);
 INSERT INTO USERS VALUES (2, 'user', '12345', 0);
+INSERT INTO USERS VALUES (3, 'user2', '12345', 0);
 -- 12345 are sample values, database  reveived and returns a hash of the password
 -- hashes are handled by java application not by database
 
@@ -17,6 +18,9 @@ INSERT INTO SESSIONS VALUES(SYS_GUID(), 1);
 -- Assign user to German
 
 INSERT INTO LECTURES_USERS VALUES(2, 2);
+
+-- yet another user to German
+insert into lectures_users values(2, 3);
 
 -- Create a new user's offer to swap German with English
 

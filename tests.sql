@@ -72,7 +72,6 @@ commit;
 select * from OFFERS_HISTORY where OPERATION_TYPE = 'DELETE';
 
 
-
 -- procedures
 -- change password
 select * from USERS where ID = 1;
@@ -93,4 +92,10 @@ begin
     ACCEPT_OFFER(offer_id, 1);
 end;
 /
+select * from OFFERS;
+
+
+-- functions
+-- hash_value is used to hash password in change_password procedure
+-- find best offer
 select * from OFFERS;
