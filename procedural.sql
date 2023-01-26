@@ -17,6 +17,8 @@ BEGIN
     END IF;
 END;
 /
+drop trigger tg_lectures_history;
+
 
 CREATE OR REPLACE TRIGGER tg_offers_history
     AFTER INSERT OR DELETE

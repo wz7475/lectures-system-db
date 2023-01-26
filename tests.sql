@@ -54,11 +54,11 @@ SELECT * FROM LECTURES_USERS WHERE USERS_ID = 2;
 
 -- triggers
 -- lecture history
-INSERT INTO LECTURES_USERS VALUES(1, 2);
+INSERT INTO LECTURES_USERS VALUES(2, 1);
 commit;
 select * from LECTURES_HISTORY where TYPE like 'SIGN_UP';
 
-delete from LECTURES_USERS where USERS_ID = 1 and LECTURE_ID = 2;
+delete from LECTURES_USERS where LECTURE_ID = 1 and USERS_ID = 2;
 commit;
 select * from LECTURES_HISTORY where TYPE = 'OPT_OUT';
 
@@ -99,3 +99,17 @@ select * from OFFERS;
 -- hash_value is used to hash password in change_password procedure
 -- find best offer
 select * from OFFERS;
+insert into LECTURES_USERS values(1, 3);
+commit;
+INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1, 3);
+commit;
+-- case for no matching  offer
+select FIND_BEST_OFFER(2) from dual;
+-- case for matching offer
+INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 1, 2, 3);
+commit;
+insert into LECTURES_USERS values(2,1 );
+insert into LECTURES_USERS values(2,3 );
+commit;
+select FIND_BEST_OFFER(1) from dual;
+-- finds best oldes offer for lecture
