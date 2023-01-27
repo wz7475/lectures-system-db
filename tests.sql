@@ -58,18 +58,19 @@ INSERT INTO LECTURES_USERS VALUES(2, 1);
 commit;
 select * from LECTURES_HISTORY where TYPE like 'SIGN_UP';
 
-delete from LECTURES_USERS where LECTURE_ID = 1 and USERS_ID = 2;
+delete from LECTURES_USERS where LECTURE_ID = 2 and USERS_ID = 1;
 commit;
 select * from LECTURES_HISTORY where TYPE = 'OPT_OUT';
 
 -- offer history
-INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1, 1);
-commit;
-select * from OFFERS_HISTORY where OPERATION_TYPE = 'CREATE';
-
-delete from OFFERS where RETURNED_LECTURE_ID = 1  and OFFERED_LECTURE_ID = 2 AND SELLER_ID = 1;
+-- one created in dml sample
+delete from OFFERS where  OFFERED_LECTURE_ID = 2 and RETURNED_LECTURE_ID = 1 AND SELLER_ID = 2;
 commit;
 select * from OFFERS_HISTORY where OPERATION_TYPE = 'DELETE';
+
+INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1,2 );
+commit;
+select * from OFFERS_HISTORY where OPERATION_TYPE = 'CREATE';
 
 
 -- procedures
@@ -81,15 +82,22 @@ end;
 /
 select * from USERS where ID = 1;
 
+
 -- accept offer
 select * from OFFERS;
-INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1, 1);
-commit;
+-- insert into LECTURES_USERS values(1, 2);
+-- commit;
+-- delete from LECTURES_USERS where LECTURE_ID = 2 and USERS_ID = 2;
+-- commit;
+-- delete from LECTURES_USERS where LECTURE_ID = 1 and USERS_ID = 1;
+-- INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1, 3);
+-- commit;
 declare
         offer_id number;
 begin
-    select ID into offer_id from OFFERS where RETURNED_LECTURE_ID = 1  and OFFERED_LECTURE_ID = 2 AND SELLER_ID = 1;
-    ACCEPT_OFFER(offer_id, 1);
+    select ID into offer_id from OFFERS where  OFFERED_LECTURE_ID = 2
+                                          and RETURNED_LECTURE_ID = 1  AND SELLER_ID = 2;
+    ACCEPT_OFFER(offer_id, 3);
 end;
 /
 select * from OFFERS;
@@ -99,17 +107,24 @@ select * from OFFERS;
 -- hash_value is used to hash password in change_password procedure
 -- find best offer
 select * from OFFERS;
-insert into LECTURES_USERS values(1, 3);
-commit;
 INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1, 3);
 commit;
+
 -- case for no matching  offer
 select FIND_BEST_OFFER(2) from dual;
+
 -- case for matching offer
 INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 1, 2, 3);
 commit;
-insert into LECTURES_USERS values(2,1 );
-insert into LECTURES_USERS values(2,3 );
-commit;
-select FIND_BEST_OFFER(1) from dual;
+-- insert into LECTURES_USERS values(2,1 );
+-- insert into LECTURES_USERS values(2,3 );
+-- commit;
+select FIND_BEST_OFFER(3) from dual;
 -- finds best oldes offer for lecture
+-- 55: 2 1 2
+declare
+    offer_id number;
+    begin
+    select FIND_BEST_OFFER(3) into offer_id from dual;
+    ACCEPT_OFFER(offer_id, 3);
+end;
