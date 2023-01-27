@@ -19,7 +19,7 @@ JOIN LECTURES ON LECTURES_USERS.LECTURE_ID = LECTURES.ID;
 
 SELECT LECTURES.NAME, OPINIONS.CONTENT, OPINIONS.CREATED_AT
 FROM LECTURES
-JOIN OPINIONS ON LECTURES.ID = OPINIONS.LECTURE_ID
+JOIN OPINIONS ON LECTURES.ID = OPINIONS.LECTURE_ID;
 
 
 
@@ -85,13 +85,6 @@ select * from USERS where ID = 1;
 
 -- accept offer
 select * from OFFERS;
--- insert into LECTURES_USERS values(1, 2);
--- commit;
--- delete from LECTURES_USERS where LECTURE_ID = 2 and USERS_ID = 2;
--- commit;
--- delete from LECTURES_USERS where LECTURE_ID = 1 and USERS_ID = 1;
--- INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 2, 1, 3);
--- commit;
 declare
         offer_id number;
 begin
@@ -101,7 +94,7 @@ begin
 end;
 /
 select * from OFFERS;
-
+select * from OFFERS_HISTORY;
 
 -- functions
 -- hash_value is used to hash password in change_password procedure
@@ -114,17 +107,20 @@ commit;
 select FIND_BEST_OFFER(2) from dual;
 
 -- case for matching offer
-INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 1, 2, 3);
+INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 1, 2, 2);
+INSERT INTO OFFERS VALUES(OFFERS_ID_SEQUENCE.nextval, 1, 2, 1);
 commit;
--- insert into LECTURES_USERS values(2,1 );
--- insert into LECTURES_USERS values(2,3 );
--- commit;
+
+SELECT * FROM OFFERS;
 select FIND_BEST_OFFER(3) from dual;
--- finds best oldes offer for lecture
--- 55: 2 1 2
+
 declare
     offer_id number;
     begin
     select FIND_BEST_OFFER(3) into offer_id from dual;
     ACCEPT_OFFER(offer_id, 3);
 end;
+
+SELECT * FROM offers;
+SELECT * FROM LECTURES_USERS;
+SELECT * FROM offers_history;
