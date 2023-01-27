@@ -6,11 +6,33 @@
 
 ## Opis projektu
 
-```WIP```
+Inspiracją do naszego projektu był problem z zapisami na lektoraty.
+Podczas zapisów często nie wiadomo czego można się spodziewać po danych zajęciach
+i cięzko jest dopasować je pod plan studiów. Można próbować dokonywać wymian na różnych czat'ach
+i serwisach społecznościowych, lecz informacje zazwyczaj gubią się w wątku.\
+Aby wyjść na przeciw problemom postanowiliśmy stworzyć prosty serwis interaktywny do
+obsługi zapisów na lektoraty z możliwością dodawania opinii o danych zajęciach oraz wymian
+między użytkownikami.\
+Komunikację między użytkownikiem, który korzysta z aplikacji webowej (React), a bazą danych pełni
+aplikacja backend-owa napisana w języku Java (framework Spring Boot), która łączy się z bazą danych
+Oracle z pomocą rozwiązania JPA. Dane są transformowane po przez tzw. DataService i model do kontrolerów,
+które odpowiadają na zapytania pseudo RESTowe aplikacji webowej.
+Od strony projektowania bazy danych do projektu, podstawowymi informacjami jakie przechowujemy
+są dane o użytkownikach, zajęciach (lektoratach), opinie, oferty (oferty wymian) oraz stan zapisu
+danego użytkownika na lektorach. Dodatkowo w celach administracyjnych dodano przechowywanie historii
+zapisów na lektoraty oraz ofert (tworzenia, usuwania oraz dokonania wymiany)
 
 ## Analiza krytyczna
 
-```WIP```
+Zaprojektowana baza danych oraz aplikacja posiadają niedostateczne zdolności logowania działań podejmowanych przez
+użytkownika,
+przez co działania administracyjne mogą być utrudnione lub mogą wymagać nadzwyczajniego dużego wkładu pracy. Ze względu
+na przyjęte
+założenia i chęć zbudowania prostego projektu, część funkcjonalności wymagałaby przeprojektowania podczas rozszerzania
+aplikacji, w tym
+konieczne byłoby zbieranie większej ilości informacji lub inny podział danych pomiędzy tabelami (w szczególności
+konieczne byłoby wydzielenie danych dotyczących historii najlepiej do innej bazy danych)
+
 
 ## Skrypty i model ER
 
@@ -42,6 +64,8 @@ użyto:
   wykorzystuje kursory
 
 ### Testy
+
+Plik [tests.sql](tests.sql)
 
 **Złączenia**
 
