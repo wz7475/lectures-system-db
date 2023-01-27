@@ -97,3 +97,7 @@ Plik [tests.sql](tests.sql)
 - Testy procedury akceptującej ofertę przez użytkownika
 - Testy funkcji znajdującej najlepsze ofertę dla użytkownika gotową do zaakceptowania
 - Testy mieszane, testujące zdolność do zaakceptowania znalezionej najlepszej oferty dla użytkownika
+
+## Aplikacja
+
+Aplikacja znajduje się w oddzielnym [repozytorium](https://gitlab-stud.elka.pw.edu.pl/pap_22z_z12/pap22z-z12)
