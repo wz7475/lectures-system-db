@@ -17,7 +17,6 @@ BEGIN
     END IF;
 END;
 /
-drop trigger tg_lectures_history;
 
 
 CREATE OR REPLACE TRIGGER tg_offers_history
@@ -67,8 +66,12 @@ BEGIN
     INSERT INTO offers_history
     VALUES (offers_history_id_sequence.nextval, v_offer.offered_lecture_id, v_offer.returned_lecture_id,
             v_offer.seller_id, p_buyer_id, SYSDATE, 'EXCHANGE');
+    INSERT INTO offers_history
+    VALUES (offers_history_id_sequence.nextval, v_offer.returned_lecture_id, v_offer.offered_lecture_id,
+            p_buyer_id, v_offer.seller_id, SYSDATE, 'EXCHANGE');
 
     DELETE offers WHERE id = v_offer.id;
+    DELETE OFFERS WHERE seller_id = p_buyer_id AND offered_lecture_id = v_offer.returned_lecture_id AND returned_lecture_id = v_offer.offered_lecture_id;
 END;
 /
 
