@@ -1,6 +1,8 @@
-# Projekt BD1 *(łączony z PAP)*
 
-### SWiZLE - System Wymian i Zapisów na Lektoraty Elektroniczny
+
+### Projekt bazy danych do systemu lektoratów
+https://github.com/wz7475/lectures-system
+
 
 ##### Autorzy: Bartosz Kisły, Wojciech Zarzecki, Patryk Filip Gryz
 
@@ -22,16 +24,6 @@ są dane o użytkownikach, zajęciach (lektoratach), opinie, oferty (oferty wymi
 danego użytkownika na lektorach. Dodatkowo w celach administracyjnych dodano przechowywanie historii
 zapisów na lektoraty oraz ofert (tworzenia, usuwania oraz dokonania wymiany)
 
-## Analiza krytyczna
-
-Zaprojektowana baza danych oraz aplikacja posiadają niedostateczne zdolności logowania działań podejmowanych przez
-użytkownika,
-przez co działania administracyjne mogą być utrudnione lub mogą wymagać nadzwyczajniego dużego wkładu pracy. Ze względu
-na przyjęte
-założenia i chęć zbudowania prostego projektu, część funkcjonalności wymagałaby przeprojektowania podczas rozszerzania
-aplikacji, w tym
-konieczne byłoby zbieranie większej ilości informacji lub inny podział danych pomiędzy tabelami (w szczególności
-konieczne byłoby wydzielenie danych dotyczących historii najlepiej do innej bazy danych)
 
 
 ## Skrypty i model ER
